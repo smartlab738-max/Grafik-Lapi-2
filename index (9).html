@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f0f5fc"><title>Grafik Lapi 2 | Grafik + Raw Data & Pengaturan</title><style>
+:root{--ink:#13243b;--muted:#65758b;--blue:#245de3;--line:#e2e9f1;--soft:#f6f9fd;--navy:#14263f;--good:#067454;--orange:#a45c15;--red:#b4233a}
+*{box-sizing:border-box}body{margin:0;background:#f7f9fc;color:var(--ink);font:14px/1.5,system-ui,-apple-system,"Segoe UI",sans-serif}button,input,select{font:inherit}button{cursor:pointer}button:disabled{opacity:.5;cursor:not-allowed}button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.shell{max-width:1300px;margin:auto;padding:25px clamp(12px,3vw,34px) 55px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.eyebrow{color:var(--blue);text-transform:uppercase;font-size:10px;letter-spacing:.14em;font-weight:800;margin:0 0 5px}h1{font-size:clamp(24px,3vw,31px);line-height:1.2;letter-spacing:-.04em;margin:0}h2{font-size:17px;margin:0 0 4px;letter-spacing:-.02em}h3{font-size:14px;margin:0}.sub{color:var(--muted);font-size:12px;margin:6px 0 0}.actions{display:flex;gap:7px;align-items:center;flex-wrap:wrap}.btn{border:1px solid #dbe3ee;background:white;color:var(--ink);border-radius:10px;padding:9px 13px;font-weight:750;font-size:12px;min-height:37px}.btn:hover{border-color:#9ab6e7}.btn.blue{background:var(--blue);border-color:var(--blue);color:white}.btn.blue:hover{background:#164bbc}.btn.dark{background:var(--navy);color:white}.btn.sm{padding:6px 9px;min-height:30px;font-size:11px}.status{border:1px solid #cbd9ef;border-radius:11px;padding:10px 13px;background:#f0f5ff;color:#33527d;font-size:12px;margin-top:16px}.status.ok{background:#effaf5;border-color:#c7e8d9;color:#076346}.status.warn{background:#fff8e9;border-color:#f6dfa9;color:#845617}.status.error{background:#fff1f1;border-color:#f1c8c8;color:var(--red)}.card{background:white;border:1px solid var(--line);border-radius:16px;padding:17px;box-shadow:0 5px 20px -20px #1b3d63;margin-top:16px}.filters{display:grid;grid-template-columns:130px 160px minmax(240px,1fr) 130px;gap:12px}.field{display:flex;flex-direction:column;gap:5px;min-width:0}.field label{font-size:11px;font-weight:750;color:#536783}.field input,.field select{width:100%;border:1px solid #dbe3ee;border-radius:9px;padding:9px 10px;background:white;min-height:39px;color:var(--ink)}.field input:disabled{background:var(--soft)}.field .help{font-size:10px;color:var(--muted)}.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.metric{background:white;border:1px solid var(--line);border-radius:14px;padding:14px 17px}.metric small{display:block;color:var(--muted);font-size:11px}.metric strong{display:block;font-size:23px;letter-spacing:-.035em;margin-top:5px}.metric span{font-size:11px;color:var(--muted)}.tabs{display:flex;gap:7px;flex-wrap:wrap;margin:4px 0 15px}.tab{padding:9px 15px;border:1px solid var(--line);background:white;border-radius:9px;color:#50617c;font-weight:750}.tab[aria-selected=true]{background:var(--navy);color:white;border-color:var(--navy)}.flexhead{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap}.chartframe{width:100%;overflow:hidden;margin-top:12px}.chartframe svg{display:block;width:100%;height:auto}.note{color:var(--muted);font-size:11px;margin:8px 0 0}.tablewrap{overflow:auto;max-height:470px;border:1px solid var(--line);border-radius:11px;margin-top:14px}table{border-collapse:collapse;width:100%;font-size:12px;font-variant-numeric:tabular-nums}th,td{text-align:left;border-bottom:1px solid #edf1f6;padding:10px 11px;white-space:nowrap}th{font-size:11px;color:#596d86;background:#f5f8fc;position:sticky;top:0;z-index:1}td.num{text-align:right}tr:last-child td{border:0}.num{font-variant-numeric:tabular-nums}.tag{font-size:10px;font-weight:750;padding:4px 7px;border-radius:6px;background:#f2f4f7;color:#53647b}.tag.ok{background:#e7f7f0;color:#067454}.tag.warn{background:#fff4e4;color:#9b5d18}.tag.error{background:#ffeced;color:#b4233a}.editvalue{width:112px;padding:6px 8px;border:1px solid #d9e2ee;border-radius:7px;font-size:11px}.two{display:grid;grid-template-columns:1.1fr .9fr;gap:16px}.entrygrid{display:grid;grid-template-columns:minmax(160px,1.3fr) 110px 1fr auto;gap:10px;align-items:end}.formfoot{font-size:11px;color:var(--muted);margin-top:10px}.panelgrid{display:grid;grid-template-columns:1fr 135px auto;gap:10px;align-items:end}.space{height:8px}.details{border:1px solid var(--line);border-radius:11px;padding:11px 14px;margin-top:15px}.details summary{cursor:pointer;font-weight:750;font-size:12px}.auth{display:grid;grid-template-columns:minmax(190px,1fr) auto;align-items:end;gap:10px;max-width:650px}.auth input{min-width:0}.footer{color:var(--muted);font-size:11px;margin:23px 0}.hidden{display:none!important}.empty{text-align:center;color:var(--muted);padding:38px 10px}.helpIcon{font-size:11px;color:#9b5d18}
+@media(max-width:860px){.filters{grid-template-columns:repeat(2,minmax(0,1fr))}.two{grid-template-columns:1fr}.entrygrid{grid-template-columns:1fr 1fr}.entrygrid button{grid-column:1/-1}.panelgrid{grid-template-columns:1fr 1fr}.panelgrid button{grid-column:1/-1}}
+@media(max-width:530px){.filters{grid-template-columns:1fr 1fr}.filters>.field:nth-child(3){grid-column:1/-1}.stats{grid-template-columns:1fr}.metric strong{font-size:21px}.entrygrid{grid-template-columns:1fr 1fr}.entrygrid>.field:nth-child(1){grid-column:1/-1}.auth{grid-template-columns:1fr}.panelgrid{grid-template-columns:1fr}.shell{padding-top:17px}.card{padding:13px}}
+
+
+:root{--ink:#12253c;--blue:#255bdd;--navy:#152a44;--line:#e5ebf3;--soft:#f5f8fd}
+body{font-family:Inter,"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;font-size:14px;line-height:1.55;background:linear-gradient(180deg,#f0f5fc 0%,#f8fafc 360px,#f8fafc 100%)}
+.shell{max-width:1420px;padding-bottom:70px}.top{padding:9px 0 3px}.eyebrow{letter-spacing:.18em}.card{box-shadow:0 9px 28px -25px #26446f;border-color:#e2e9f3;border-radius:18px}.filter-card{margin-top:19px}
+.global-filters{grid-template-columns:150px 175px minmax(240px,1fr);max-width:890px}
+.mini-label{font-size:11px;color:#386b85;background:#edf7fa;border:1px solid #d3ecf2;border-radius:99px;padding:6px 11px;font-weight:750}
+.mainnav{display:flex;gap:9px;margin:20px 0 13px;border-bottom:1px solid #d8e2ee;padding-bottom:11px}.view-tab{border:1px solid #dbe5ef;background:white;border-radius:12px;padding:11px 19px;font-weight:800;font-size:13px;color:#56708a}.view-tab[aria-selected="true"]{background:#152d48;border-color:#152d48;color:white;box-shadow:0 5px 14px #172a411c}
+.stats{margin:10px 0 14px}.metric{box-shadow:0 10px 28px -25px #244368}.metric strong{color:#1e4fbd}.chart-card{margin-top:0;padding:22px 24px}.chartframe{margin-top:20px;border:1px solid #edf2f7;border-radius:12px;padding:12px;background:white;overflow-x:auto}.chartframe svg{min-width:720px}.tabs{margin:0;gap:5px;background:#f3f7fc;padding:4px;border-radius:12px}.tab{border:0;background:transparent}.tab[aria-selected="true"]{background:white;color:#1654c9;box-shadow:0 1px 6px #294a6a18;border:0}
+.chart-card .actions{gap:9px}.field-compact{width:auto;min-width:82px}.field-compact select{min-height:37px;padding:7px 10px}.field-compact input[type=color]{width:43px;height:37px;min-height:37px;padding:4px;border:1px solid #d5e1ed;border-radius:9px;background:white;cursor:pointer}
+.settings-head{margin-top:0}.tablewrap{max-height:600px}.tablewrap tbody tr:nth-child(even){background:#fafcfe}.tablewrap tbody tr:hover{background:#f3f8ff}th{background:#f0f5fc;font-weight:800;top:0}.editvalue{width:140px;height:34px;padding:6px 9px;background:#fff;border-radius:8px;font-size:12px}.editvalue:not([disabled]):focus{background:#eff7ff;border-color:#3174e4;outline:2px solid #c7dbfa}.editvalue[disabled]{background:#f4f7fa;color:#9ba9b7}.editvalue.corrected{border-color:#8ad5b8;background:#f0fbf6}.kwh-input{font-weight:750;color:#174fc4}.row-actions{white-space:nowrap}.row-actions button:first-child{border-color:#adc6f1;color:#1e55b6}.settings-head .btn{white-space:normal}.footer{margin-top:28px;line-height:1.7}
+@media(max-width:800px){.global-filters{grid-template-columns:repeat(2,minmax(0,1fr))}.global-filters>.field:last-child{grid-column:1/-1}.chart-card{padding:15px}.chart-card .flexhead{gap:16px}}
+@media(max-width:530px){.mainnav{gap:5px}.view-tab{flex:1;padding:11px 8px;font-size:12px}.global-filters{grid-template-columns:1fr 1fr}.global-filters>.field:last-child{grid-column:1/-1}.chartframe{padding:6px}.chart-card .actions{width:100%}.chart-card .tabs{flex:1}.chart-card .btn{min-height:35px}}
+
+/* Revisi tata letak grafik dan raw data terintegrasi */
+.chart-card{padding:24px 26px 25px;overflow:hidden}
+.chart-card .flexhead{align-items:start;gap:18px}
+.chart-card h2{font-size:19px;line-height:1.35;letter-spacing:-.025em}
+.chart-card .sub{line-height:1.55}
+.chartframe{position:relative;margin-top:19px;padding:14px 16px 8px;background:linear-gradient(180deg,#fbfdff 0%,#ffffff 48%);border:1px solid #e3ebf5;border-radius:15px;overflow-x:auto;overflow-y:hidden;scrollbar-color:#c4d5ea #f0f5fa;scrollbar-width:thin}
+.chartframe svg{min-width:760px;width:100%;height:auto;display:block}
+.chartframe .empty{min-height:290px;display:grid;place-items:center}
+.chart-toolbar-note{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;margin-top:14px}
+.chart-series{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:#345372;font-weight:800;min-width:0;overflow-wrap:anywhere}
+.chart-series-dot{width:11px;height:11px;border-radius:4px;background:var(--chart-series-color,#2563eb);flex:none;box-shadow:0 0 0 3px #eaf2fc}
+.chart-info{font-size:11px;color:#72859b}
+.chart-tooltip{position:absolute;z-index:4;pointer-events:none;background:#142c47;color:#fff;box-shadow:0 12px 28px #193a5c30;border-radius:12px;padding:10px 12px;font-size:11px;line-height:1.5;min-width:135px;max-width:240px}
+.chart-tooltip[hidden]{display:none}
+.chart-tooltip strong{display:block;font-size:12px;margin-bottom:3px}
+.chart-tooltip em{display:block;font-style:normal;color:#bdcfe2}
+.chart-raw{margin-top:20px;border:1px solid #e3eaf3;border-radius:15px;overflow:hidden;background:#fff}
+.chart-raw-head{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;padding:14px 16px;background:#f8fbff;border-bottom:1px solid #e8eef6}
+.chart-raw h3{font-size:14px;letter-spacing:-.01em;line-height:1.35}
+.chart-raw .tablewrap{margin:0;border:0;border-radius:0;max-height:410px}
+.chart-raw table{width:100%;min-width:705px;border-collapse:collapse;font-size:11.6px}
+.chart-raw th{background:#f1f6fd;padding:10px 12px;white-space:nowrap;border-bottom:1px solid #dfe8f4}
+.chart-raw td{padding:9px 12px;border-bottom:1px solid #eef2f8;vertical-align:middle}
+.chart-raw td:first-child,.chart-raw th:first-child{position:sticky;left:0;z-index:2;background:#fff}
+.chart-raw th:first-child{z-index:3;background:#f1f6fd}
+.chart-raw tbody tr:nth-child(even) td{background:#fbfdff}
+.chart-raw tbody tr:nth-child(even) td:first-child{background:#fbfdff}
+.chart-raw tbody tr:hover td,.chart-raw tbody tr.chart-row-focus td{background:#eef6ff}
+.chart-raw tbody tr:hover td:first-child,.chart-raw tbody tr.chart-row-focus td:first-child{background:#eef6ff}
+.chart-raw td.right,.chart-raw th.right{text-align:right;font-variant-numeric:tabular-nums}
+.chart-raw td.value{font-weight:800;color:#1855ae}
+.chart-raw td.dim{color:#718199}
+.chart-raw .raw-meta{font-size:11px;color:#70829b;margin:0;flex:1 1 100%}
+.hour-details summary{font-size:11px;color:#1e5bb2;cursor:pointer;white-space:nowrap;font-weight:750}
+.hour-details[open]{position:relative;z-index:2}
+.hour-values{min-width:220px;max-width:400px;max-height:165px;overflow:auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px 12px;padding:9px 0;font-size:10.5px;color:#536780}
+.hour-values span{white-space:nowrap}
+.month-open{color:#245ddd;border-color:#ccdafa;white-space:nowrap}
+.emptyraw{padding:36px 12px;text-align:center;color:#76879e}
+@media(max-width:800px){.chart-card{padding:16px}.chartframe{padding:8px}.chart-card .actions{width:100%}}
+@media(max-width:530px){.chart-raw-head{padding:12px}.chartframe svg{min-width:760px}.chart-card h2{font-size:17px}}
+
+
+/* Editor tabel sederhana: hanya Edit & Simpan pada header */
+.table-header-actions{align-items:center;gap:8px}
+.edit-toggle{background:#fff;color:#244b80;border:1px solid #cbd9e9}
+.edit-toggle[aria-pressed="true"]{background:#eaf2ff;color:#1d52b0;border-color:#98b9ec;box-shadow:0 0 0 2px #e1edff}
+.table-help{font-size:12px;color:#6b7d93;margin:10px 0 14px;line-height:1.6}
+.daily-inline-wrap,.hour-inline-wrap{max-height:none;overflow-x:auto}
+.daily-inline-wrap table{min-width:770px;width:100%}
+.daily-inline-wrap td,.daily-inline-wrap th,.hour-inline-wrap td,.hour-inline-wrap th{vertical-align:middle}
+.daily-inline-wrap td:first-child,.daily-inline-wrap th:first-child{position:sticky;left:0;z-index:2;background:#fff}
+.daily-inline-wrap th:first-child{z-index:3;background:#f0f5fc}
+.daily-inline-wrap tbody tr:nth-child(even) td:first-child{background:#fafcfe}
+.daily-inline-wrap tbody tr.chosen-hour td{background:#edf5ff}
+.daily-inline-wrap tbody tr.chosen-hour td:first-child{background:#edf5ff}
+.hour-inline-wrap table{min-width:430px;width:100%}
+.hour-inline-wrap th:first-child,.hour-inline-wrap td:first-child{width:105px}
+.hour-inline-wrap th:last-child,.hour-inline-wrap td:last-child{width:160px}
+.hour-inline-wrap tr.has-reading{background:#f6fbff}
+.hour-inline-wrap input[type="number"]{width:min(320px,100%)}
+.daily-inline-wrap input.editvalue{width:min(145px,100%);min-width:95px}
+.editvalue[disabled],.hour-input[disabled]{background:#f7f9fc!important;border-color:#e7edf4!important;color:#4d647d!important;cursor:default}
+.hour-date-field{min-width:160px}.hour-date-field input{min-height:38px}
+.table-header-actions .btn{white-space:nowrap}
+@media(max-width:600px){.table-header-actions{width:100%}.table-header-actions .btn{flex:1;white-space:normal}.hour-date-field{min-width:155px}}
+</style></head><body>
+<div class="shell">
+<header class="top"><div><p class="eyebrow">PT LAPI LABORATORIES · MONITORING ENERGI</p><h1 id="pageTitle">Grafik Pemakaian Listrik Lapi 2</h1><p class="sub">Grafik yang bersih, data yang dapat dikoreksi, dan penyimpanan JSON di GitHub</p></div><div class="actions"><button class="btn" id="backupBtn">↓ Unduh JSON</button><button class="btn blue" id="saveBtn">☁ Simpan ke GitHub</button></div></header>
+<div id="status" class="status" role="status">Memuat data Excel dari JSON GitHub...</div>
+<section class="card filter-card"><div class="flexhead"><div><h2>Periode & Panel</h2><p class="sub">Pilih tahun, bulan, dan panel yang ingin dilihat atau diedit.</p></div><span class="mini-label">Database GitHub · JSON</span></div><div class="filters global-filters" style="margin-top:14px"><div class="field"><label for="year">Tahun</label><select id="year"></select></div><div class="field"><label for="month">Bulan</label><select id="month"></select></div><div class="field"><label for="panel">Panel listrik</label><select id="panel"></select></div></div><p class="note" id="clockHint"></p></section>
+<nav class="mainnav" aria-label="Menu dashboard"><button class="view-tab" data-view="chart" aria-selected="true">▥ Grafik</button><button class="view-tab" data-view="settings" aria-selected="false">⚙ Pengaturan Data</button></nav>
+<div id="chartView">
+ <div class="stats"><div class="metric"><small id="totalLabel">Total pemakaian bulan terpilih</small><strong id="kwh">—</strong><span>kWh · panel terpilih</span></div><div class="metric"><small id="daysLabel">Hari dengan nilai pemakaian</small><strong id="days">—</strong><span id="daysSub">Jumlah tanggal</span></div><div class="metric"><small id="issuesLabel">Pencatatan perlu diperiksa</small><strong id="issues">—</strong><span>Anomali / periode parsial</span></div></div>
+ <section class="card chart-card"><div class="flexhead"><div><h2 id="chartTitle">Grafik Pemakaian Listrik</h2><p id="chartSubtitle" class="sub">Januari–Desember</p></div><div class="actions"><div class="tabs" aria-label="Jenis grafik"><button class="tab" data-tab="daily" aria-selected="true">Harian</button><button class="tab" data-tab="monthly" aria-selected="false">Bulanan</button></div><div class="field field-compact"><label for="mode">Tipe</label><select id="mode"><option value="bar">Batang</option><option value="line">Garis</option></select></div><div class="field field-compact"><label for="chartColor">Warna grafik</label><input type="color" id="chartColor" value="#2563eb" title="Ubah warna grafik panel ini"></div><button class="btn" id="exportPng">↓ PNG + Data</button><button class="btn" id="exportCsv">↓ CSV</button></div></div><div class="chart-toolbar-note"><span id="seriesLegend" class="chart-series"><span class="chart-series-dot"></span><span id="seriesName">Panel listrik</span></span><span class="chart-info">Arahkan kursor ke batang/titik untuk melihat angka</span></div><div class="chartframe" id="chart"><div class="empty">Memuat grafik...</div></div>
+ <section class="chart-raw" id="chartRawSection"><div class="chart-raw-head"><div><h3 id="chartRawTitle">Raw Data Grafik</h3><p class="sub" id="chartRawSubtitle">Angka asli dan hasil pemakaian yang sedang digrafikkan.</p></div><div class="actions"><span class="mini-label" id="chartRawCount">—</span><button class="btn sm" id="rawToggle" aria-expanded="true">Sembunyikan Tabel</button><button class="btn sm" id="rawCsv">↓ CSV Raw Data</button></div></div><div id="chartRawBody"><div id="chartRawTable" class="tablewrap"></div><p class="note" style="padding:0 15px 14px">Tanda — berarti tidak ada data. Nilai bertanda sementara/parsial bukan total final. Untuk memperbaiki angka, buka tab Pengaturan Data.</p></div></section>
+ <p class="note">Sumbu X: tanggal atau bulan · Sumbu Y: pemakaian listrik (kWh). Data kosong tidak diubah menjadi nol.</p></section>
+</div>
+<div id="settingsView" class="hidden">
+ <section class="card settings-head"><div class="flexhead"><div><h2>Pengaturan Data · Edit Langsung di Tabel</h2><p class="sub">Pilih panel dan bulan di atas, klik <b>Edit</b> di header tabel, lalu ubah angka pada sel. Setelah selesai klik <b>Simpan ke GitHub</b>.</p></div><span class="mini-label">Database JSON GitHub</span></div><p class="note">Data awal tetap dipertahankan. Semua perubahan masuk ke draf lokal sebelum disimpan ke repository.</p></section>
+ <section class="card" id="dailyTableSection"><div class="flexhead"><div><h2>Tabel Pemakaian Harian</h2><p class="sub">Klik tanggal pada kolom "Pembacaan Jam" untuk melihat atau mengisi stand meter 00:00–24:00 di tabel bawah.</p></div><div class="actions table-header-actions"><button class="btn sm edit-toggle" id="editTableBtn" aria-pressed="false">✎ Edit Tabel</button><button class="btn sm blue" id="saveTableBtn">☁ Simpan ke GitHub</button><button class="btn sm" id="tableCsvBtn">↓ CSV</button></div></div><p id="editModeHint" class="table-help">Mode lihat · Klik Edit Tabel untuk mengisi angka.</p><div class="tablewrap daily-inline-wrap"><table><thead><tr><th>Tanggal</th><th>Meter Awal</th><th>Meter Akhir</th><th>Pemakaian (kWh)</th><th>Status</th><th>Pembacaan Jam</th></tr></thead><tbody id="dailyRows"></tbody></table></div><div class="actions" style="margin-top:12px"><button class="btn sm" id="clearCorrection">Hapus Koreksi Bulan Ini</button></div></section>
+ <section class="card" id="hourTableSection"><div class="flexhead"><div><h2>Tabel Pembacaan Meter per Jam</h2><p class="sub">Tabel selalu terbuka. Pilih tanggal atau klik "Isi Jam" pada tabel harian, kemudian isi stand meter di jam yang diperlukan.</p></div><div class="actions"><div class="field hour-date-field"><label for="hourDate">Tanggal pencatatan</label><input id="hourDate" type="date" aria-label="Pilih tanggal tabel pembacaan per jam"></div><span class="mini-label" id="hourUnitLabel">Stand meter · kWh</span></div></div><p class="table-help">Jam tanpa pembacaan ditampilkan kosong. Kosongkan nilai lama dalam mode Edit untuk menghapus pembacaan tersebut. Semua perubahan disimpan lewat tombol Simpan ke GitHub di header tabel harian.</p><div class="tablewrap hour-inline-wrap"><table><thead><tr><th>Jam</th><th>Stand meter · klik untuk mengisi</th><th>Keterangan</th></tr></thead><tbody id="readingRows"></tbody></table></div></section>
+ <section class="card"><h2>Nama & Satuan Panel</h2><p class="sub">Ubah nama dan satuan panel bila diperlukan. Perubahan disimpan sebagai draf sampai tombol Simpan ke GitHub ditekan.</p><div class="space"></div><div class="panelgrid"><div class="field"><label for="panelName">Nama Panel</label><input id="panelName" maxlength="125" type="text"></div><div class="field"><label for="panelUnit">Satuan</label><select id="panelUnit"><option value="KWH">kWh</option><option value="MWH">MWh</option><option value="GWH">GWh</option><option value="UNKNOWN">Belum diketahui</option></select></div><button class="btn" id="updatePanel">Simpan Nama</button></div><div class="actions" style="margin-top:12px"><button class="btn sm" id="newPanel">+ Tambah Panel</button></div></section>
+ <section class="card hidden" id="weeklySection"><h2>Arsip Meter Mingguan 2025</h2><p class="sub">Arsip mingguan dari Excel asli ditampilkan terpisah dan tidak dianggap sebagai data harian lengkap.</p><div class="tablewrap"><table><thead><tr><th>Tanggal</th><th>Stand Meter · Klik untuk Edit</th><th>Satuan</th><th>Keterangan</th></tr></thead><tbody id="weeklyRows"></tbody></table></div></section>
+ <section class="card"><details class="details" id="githubSettings"><summary>Pengaturan Akses Simpan GitHub</summary><p class="sub">Repository sudah otomatis: <b>smartlab738-max/Grafik-Lapi-2</b> → <code>rekap-data/rekap-listrik.json</code>. Tidak perlu isi path.</p><div class="auth" style="margin-top:12px"><div class="field"><label for="token">Token GitHub (dimasukkan saat sesi edit)</label><input type="password" id="token" autocomplete="off" spellcheck="false" placeholder="github_pat_..."></div><button class="btn" id="activateToken">Aktifkan Token</button></div><p class="note">Token hanya disimpan dalam memori tab, tidak ditulis ke HTML/JSON/browser storage. Pilih izin Contents: Read and write khusus repository Grafik-Lapi-2. Jangan membagikan token.</p></details></section>
+</div>
+<p class="footer">Tahun mengikuti tanggal pencatatan, bukan tahun tetap. Data berasal dari Excel Rekap Laporan Mingguan Listrik dan koreksi terbaru yang tersimpan di GitHub. Periksa nilai anomali serta satuan panel sebelum menggunakan total untuk pelaporan resmi. Browser memakai jam perangkat yang biasanya disinkronkan NTP; browser tidak membaca NTP langsung.</p>
+</div>
+<script>
+(()=>{'use strict';
+const $=id=>document.getElementById(id),REPO='smartlab738-max/Grafik-Lapi-2',DATA_PATH='rekap-data/rekap-listrik.json',DRAFT_KEY='grafik-lapi2-draft-v1';
+const MONTHS=['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'],SHORT=['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agt','Sep','Okt','Nov','Des'];
+const PALETTE=['#2563eb','#0d9488','#8b5cf6','#e87935','#dc4c72','#0891b2','#64748b','#65a30d','#d97706','#6366f1','#0f766e','#be185d','#3b82f6','#c2410c','#a855f7'];
+const state={db:null,base:null,year:null,month:0,panel:null,tab:'daily',view:'chart',mode:'bar',token:'',dirty:false,loading:false,editing:false,hourDate:''};
+const isNum=n=>typeof n==='number'&&Number.isFinite(n),fmt=(n,d=1)=>isNum(n)?new Intl.NumberFormat('id-ID',{maximumFractionDigits:d}).format(n):'—';
+const escapeHtml=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const idDate=(y,m,d)=>`${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+const daysIn=(y,m)=>new Date(+y,m+1,0).getDate();
+const factor=u=>u==='GWH'?1e6:u==='MWH'?1000:u==='KWH'?1:null;
+const getPanel=id=>state.db.panels.find(x=>x.id===id);
+const currentYear=()=>new Date().getFullYear();
+function setStatus(s,kind=''){const el=$('status');el.className='status'+(kind?' '+kind:'');el.textContent=s;}
+function availableYears(){let a=new Set([String(currentYear())]);for(let date of Object.keys(state.db.readings||{}))a.add(date.slice(0,4));for(let date of Object.keys(state.db.snapshots||{}))a.add(date.slice(0,4));return [...a].filter(x=>/^20\d\d$/.test(x)).sort();}
+function daysSeries(date,id){return (state.db.readings?.[date]?.[id]?.r||[]).slice().filter(x=>Array.isArray(x)&&isNum(x[1])).sort((a,b)=>a[0]-b[0]);}
+function median(values){let a=values.filter(isNum).slice().sort((a,b)=>a-b);return a.length?a[Math.floor(a.length/2)]:0;}
+function calculate(date,id){const panel=getPanel(id),f=factor(panel?.unit),rec=state.db.readings?.[date]?.[id],raw=daysSeries(date,id),override=state.db.overrides?.[date]?.[id];
+ let out={value:null,first:null,last:null,status:'kosong',count:raw.length,flags:[],source:rec?.src||''};
+ if(raw.length){out.first=raw[0][1];out.last=raw.at(-1)[1];}
+ if(!f)out.flags.push('Satuan belum ditentukan');
+ if(raw.length>1&&f){const diff=raw.at(-1)[1]-raw[0][1],positive=[];let drops=false;
+  for(let i=1;i<raw.length;i++){const step=raw[i][1]-raw[i-1][1],hours=Math.max(1,raw[i][0]-raw[i-1][0]);if(step < -Math.max(.001,Math.abs(raw[i-1][1])*.000001))drops=true;if(step>0)positive.push(step/hours);}
+  const typical=median(positive),spikes=positive.some(d=>typical>0&&d>typical*15);
+  if(diff<0||drops)out.flags.push('Stand meter turun');if(spikes)out.flags.push('Lonjakan tidak wajar');
+  if(rec?.unreadable?.length)out.flags.push('Ada nilai tidak numerik pada sumber');
+  if(!out.flags.length){out.value=Math.round(diff*f*1000)/1000;out.status=(raw[0][0]<=2&&raw.at(-1)[0]>=23&&raw.length>=15)?'lengkap':'parsial';}else out.status='periksa';
+ }else if(raw.length)out.status='parsial';
+ if(isNum(override)&&override>=0){out.value=override;out.status='koreksi';out.flags=[];}
+ return out;
+}
+function monthly(y,m,id){let total=0,valid=0,complete=0,issues=0,partial=0;const n=daysIn(y,m);
+ for(let d=1;d<=n;d++){const r=calculate(idDate(y,m,d),id);if(r.status==='periksa')issues++;if(r.status==='parsial')partial++;if(isNum(r.value)){total+=r.value;valid++;if(r.status==='lengkap'||r.status==='koreksi')complete++;}}
+ if(valid)return{value:Math.round(total*1000)/1000,valid,complete,issues,partial,status:valid===n&&complete===n?'lengkap':'sementara',weekly:false};
+ const series=state.db.snapshots?.[`${y}-${String(m+1).padStart(2,'0')}`]?.[id];
+ if(Array.isArray(series)){
+  const ss=series.filter(e=>isNum(e.value)).slice().sort((a,b)=>a.day-b.day),unit=factor(ss[0]?.unit||getPanel(id)?.unit);
+  if(ss.length>=2&&unit){let diff=ss.at(-1).value-ss[0].value;const steps=ss.slice(1).map((item,i)=>item.value-ss[i].value),pos=steps.filter(v=>v>0);
+   if(diff>=0&&steps.every(v=>v>=0)&&!(pos.length>=3&&Math.max(...pos)>median(pos)*15))return{value:Math.round(diff*unit*1000)/1000,valid:0,complete:0,issues:0,partial:0,status:'arsip',weekly:true};
+  }
+ }
+ return{value:null,valid:0,complete:0,issues,partial,status:'kosong',weekly:false};
+}
+function initFilters(){const years=availableYears();$('year').innerHTML=years.map(y=>`<option value="${y}">${y}</option>`).join('');const now=currentYear();if(!years.includes(String(state.year)))state.year=years.includes(String(now))?String(now):years.at(-1);$('year').value=state.year;
+ $('month').innerHTML=MONTHS.map((m,i)=>`<option value="${i}">${m}</option>`).join('');$('month').value=String(state.month);
+ const panels=state.db.panels;$('panel').innerHTML=panels.map(p=>`<option value="${escapeHtml(p.id)}">${escapeHtml(p.name)}</option>`).join('');if(!getPanel(state.panel))state.panel=panels[0]?.id;$('panel').value=state.panel;
+ const prefix=state.year+'-'+String(state.month+1).padStart(2,'0')+'-';if(!state.hourDate?.startsWith(prefix))state.hourDate=idDate(state.year,state.month,Math.min(new Date().getDate(),daysIn(state.year,state.month)));
+ $('hourDate').min=idDate(state.year,state.month,1);$('hourDate').max=idDate(state.year,state.month,daysIn(state.year,state.month));$('hourDate').value=state.hourDate;
+ $('clockHint').textContent=`Tahun otomatis dari data Excel dan input tanggal · Tahun sistem saat ini: ${now}. Periksa tanggal komputer/NTP bila berbeda.`;
+ syncPanelEdit();renderReadings();}
+function syncPanelEdit(){let p=getPanel(state.panel);if(!p)return;$('panelName').value=p.name;$('panelUnit').value=p.unit;}
+function chooseStatus(status){return status==='lengkap'||status==='koreksi'?'ok':status==='kosong'?'':status==='periksa'?'error':'warn';}
+function render(){if(!state.db)return;const y=state.year,m=state.month,id=state.panel,p=getPanel(id);if(!p)return;
+ $('pageTitle').textContent=`Rekap Pemakaian Listrik ${y}`;
+ const values=Array.from({length:daysIn(y,m)},(_,i)=>calculate(idDate(y,m,i+1),id));
+ const mon=monthly(y,m,id);
+ if(state.tab==='daily'){
+  $('totalLabel').textContent='Total pemakaian bulan terpilih';$('daysLabel').textContent='Hari dengan nilai pemakaian';$('issuesLabel').textContent='Pencatatan perlu diperiksa';
+  $('kwh').textContent=fmt(mon.value,1);$('days').textContent=String(mon.valid)+(mon.weekly?'*':'');$('daysSub').textContent=mon.weekly?'arsip mingguan (bukan harian)':`dari ${daysIn(y,m)} hari pada ${MONTHS[m]}`;
+  $('issues').textContent=String(values.filter(v=>v.status==='periksa'||v.status==='parsial').length);
+ }else{
+  const list=Array.from({length:12},(_,mm)=>monthly(y,mm,id)),present=list.filter(v=>isNum(v.value)),total=present.reduce((a,v)=>a+v.value,0);
+  $('totalLabel').textContent='Subtotal pemakaian tahun '+y;$('daysLabel').textContent='Bulan dengan angka pemakaian';$('issuesLabel').textContent='Bulan belum lengkap';
+  $('kwh').textContent=present.length?fmt(total,1):'—';$('days').textContent=String(present.length);$('daysSub').textContent='dari 12 bulan pada tahun '+y;
+  $('issues').textContent=String(list.filter(v=>v.status==='sementara'||v.status==='arsip'||v.issues>0).length);
+ }
+ document.querySelectorAll('.tab').forEach(b=>b.setAttribute('aria-selected',String(b.dataset.tab===state.tab)));
+ document.querySelectorAll('.view-tab').forEach(b=>b.setAttribute('aria-selected',String(b.dataset.view===state.view)));
+ $('chartView').classList.toggle('hidden',state.view!=='chart');$('settingsView').classList.toggle('hidden',state.view!=='settings');
+ $('chartColor').value=panelColor();
+ let data,labels;
+ if(state.tab==='daily'){data=values.map(v=>v.value);labels=values.map((_,i)=>String(i+1));$('chartTitle').textContent='Grafik Harian — '+p.name;$('chartSubtitle').textContent=`${MONTHS[m]} ${y} · pemakaian per hari (kWh)`;}
+ else{data=Array.from({length:12},(_,i)=>monthly(y,i,id).value);labels=SHORT;$('chartTitle').textContent='Grafik Bulanan — '+p.name;$('chartSubtitle').textContent=`Januari–Desember ${y} · nilai parsial adalah subtotal hari valid`}
+ drawChart(data,labels);renderChartRaw();renderDaily(values);renderReadings();renderWeekly();}
+function panelColor(){const p=getPanel(state.panel);return /^#[0-9a-fA-F]{6}$/.test(p?.color||'')?p.color:PALETTE[Math.max(0,state.db.panels.findIndex(x=>x.id===state.panel))%PALETTE.length];}
+function niceScale(max){if(!max||max<=0)return 1;let raw=max/5,exp=Math.pow(10,Math.floor(Math.log10(raw))),x=raw/exp;return(x<=1?1:x<=2?2:x<=2.5?2.5:x<=5?5:10)*exp;}
+function compactValue(n){if(!isNum(n))return '—';return new Intl.NumberFormat('id-ID',{notation:'compact',maximumFractionDigits:1}).format(n)}
+function drawChart(values,labels){
+ const root=$('chart'),W=1200,H=488,PL=120,PR=38,PT=67,PB=84,IW=W-PL-PR,IH=H-PT-PB,available=values.filter(isNum);
+ if(!available.length){root.innerHTML='<div class="empty">Belum ada angka pemakaian yang valid pada periode ini. Pilih panel/bulan lain atau input di Pengaturan Data.</div>';return;}
+ const peak=Math.max(1,...available),tick=niceScale(peak*1.18),top=Math.max(tick,Math.ceil(peak*1.18/tick)*tick),color=panelColor(),esc=escapeHtml;
+ const band=IW/labels.length,x=i=>PL+band*(i+.5),yy=v=>PT+IH-(v/top)*IH,avg=available.reduce((a,v)=>a+v,0)/available.length;
+ let out=[`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(state.tab==='daily'?'Grafik harian':'Grafik bulanan')} pemakaian listrik dalam kWh">`,
+ `<defs><linearGradient id="lapiBarFade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${color}" stop-opacity="1"/><stop offset="1" stop-color="${color}" stop-opacity=".76"/></linearGradient><linearGradient id="lapiAreaFade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${color}" stop-opacity=".12"/><stop offset="1" stop-color="${color}" stop-opacity="0"/></linearGradient></defs>`,
+ `<rect width="${W}" height="${H}" fill="#ffffff"/>`,`<rect x="${PL}" y="${PT}" width="${IW}" height="${IH}" rx="6" fill="#fbfdff"/>`];
+ if(labels.length<=12)for(let i=0;i<labels.length;i+=2)out.push(`<rect x="${(PL+band*i).toFixed(2)}" y="${PT}" width="${(band*2).toFixed(2)}" height="${IH}" fill="#f5f8fd" opacity=".46"/>`);
+ // Consistent 0-based Y axis, with enough headroom for labels and no bars outside the chart.
+ const ticks=Math.round(top/tick);
+ for(let k=0;k<=ticks;k++){const v=k*tick,y=yy(v);out.push(`<line x1="${PL}" y1="${y}" x2="${W-PR}" y2="${y}" stroke="${k===0?'#9aaec6':'#e4ebf5'}" stroke-width="${k===0?1.5:1}"/>`,`<text x="${PL-15}" y="${y+4}" font-size="12" fill="#667a94" text-anchor="end">${esc(fmt(v,0))}</text>`)}
+ if(labels.length<=12)for(let i=1;i<labels.length;i++){let xx=PL+band*i;out.push(`<line x1="${xx}" y1="${PT}" x2="${xx}" y2="${PT+IH}" stroke="#e5edf7" stroke-dasharray="3 5"/>`)}
+ out.push(`<line x1="${PL}" y1="${PT}" x2="${PL}" y2="${PT+IH}" stroke="#8b9fba" stroke-width="1.5"/>`,`<line x1="${PL}" y1="${PT+IH}" x2="${PL+IW}" y2="${PT+IH}" stroke="#8b9fba" stroke-width="1.5"/>`);
+ labels.forEach((label,i)=>{out.push(`<line x1="${x(i)}" y1="${PT+IH}" x2="${x(i)}" y2="${PT+IH+4}" stroke="#8299b3" stroke-width="1"/>`);if(labels.length<=12||i%2===0)out.push(`<text x="${x(i)}" y="${PT+IH+24}" font-size="12" fill="#5a708e" text-anchor="middle">${esc(label)}</text>`)});
+ // Thin mean guide, visual reference only for valid values.
+ const meanY=yy(avg);if(avg>0){out.push(`<line x1="${PL}" y1="${meanY}" x2="${PL+IW}" y2="${meanY}" stroke="#e0a05e" stroke-width="1.4" stroke-dasharray="7 5" opacity=".88"/>`,`<text x="${W-PR-5}" y="${meanY-8}" text-anchor="end" font-size="11" font-weight="700" fill="#a46a2d" paint-order="stroke" stroke="#fff" stroke-width="4">Rata-rata ${esc(compactValue(avg))} kWh</text>`)}
+ if(state.mode==='bar'){
+  const barW=Math.min(48,band*.64);
+  values.forEach((v,i)=>{if(!isNum(v))return;const y=yy(v),hh=Math.max(0,PT+IH-y),xx=x(i)-barW/2;out.push(`<rect class="chart-mark" data-chart-index="${i}" x="${xx.toFixed(2)}" y="${y.toFixed(2)}" width="${barW.toFixed(2)}" height="${hh.toFixed(2)}" rx="${Math.min(5,barW*.15).toFixed(1)}" fill="url(#lapiBarFade)" style="cursor:crosshair"><title>${esc(labels[i])}: ${esc(fmt(v,2))} kWh</title></rect>`);if(labels.length<=12&&v>0)out.push(`<text x="${x(i)}" y="${Math.max(PT+12,y-8)}" font-size="11" text-anchor="middle" font-weight="750" fill="#315577">${esc(compactValue(v))}</text>`)});
+ }else{
+  let run=[];const finish=()=>{if(!run.length)return;const coords=run.map(([a,b])=>a+','+b).join(' ');if(run.length>=2&&run.length===values.length)out.push(`<polygon points="${coords} ${run.at(-1)[0]},${PT+IH} ${run[0][0]},${PT+IH}" fill="url(#lapiAreaFade)"/>`);out.push(`<polyline points="${coords}" fill="none" stroke="${color}" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round"/>`);run=[]};
+  values.forEach((v,i)=>{if(!isNum(v)){finish();return}run.push([x(i),yy(v)])});finish();
+  values.forEach((v,i)=>{if(!isNum(v))return;out.push(`<circle class="chart-mark" data-chart-index="${i}" cx="${x(i)}" cy="${yy(v)}" r="5.5" fill="${color}" stroke="#fff" stroke-width="2.2" style="cursor:crosshair"><title>${esc(labels[i])}: ${esc(fmt(v,2))} kWh</title></circle>`);if(values.length<=12)out.push(`<text x="${x(i)}" y="${Math.max(PT+12,yy(v)-12)}" text-anchor="middle" font-size="11" fill="#315577">${esc(compactValue(v))}</text>`)});
+ }
+ out.push(`<text x="${PL}" y="30" font-size="13" font-weight="750" fill="#3a5678">Sumbu Y · Pemakaian listrik (kWh)</text>`,`<text x="${PL+IW/2}" y="${H-21}" text-anchor="middle" font-size="13" font-weight="750" fill="#3a5678">Sumbu X · ${esc(state.tab==='daily'?'Tanggal ('+MONTHS[state.month]+' '+state.year+')':'Bulan ('+state.year+')')}</text></svg>`,`<div id="chartTip" class="chart-tooltip" hidden></div>`);
+ root.innerHTML=out.join('');
+ const tip=$('chartTip');
+ root.onpointermove=e=>{const target=e.target.closest?.('[data-chart-index]');if(!target){tip.hidden=true;return}const i=+target.dataset.chartIndex;if(!isNum(values[i])){tip.hidden=true;return}const r=root.getBoundingClientRect(),xx=e.clientX-r.left,yy=e.clientY-r.top;let date=state.tab==='daily'?idDate(state.year,state.month,i+1):MONTHS[i]+' '+state.year;tip.innerHTML=`<strong>${esc(date)}</strong><span>${esc(fmt(values[i],2))} kWh</span>`;tip.hidden=false;tip.style.left=Math.max(8,Math.min(root.clientWidth-208,xx+14))+'px';tip.style.top=Math.max(10,Math.min(root.clientHeight-75,yy-58))+'px'};
+ root.onpointerleave=()=>{tip.hidden=true};
+}
+function renderChartRaw(){
+ const id=state.panel,y=state.year,m=state.month,p=getPanel(id),dCount=daysIn(y,m),daily=state.tab==='daily';
+ $('chartRawTitle').textContent=daily?'Raw Data Grafik Harian':'Raw Data Grafik Bulanan';
+ $('chartRawSubtitle').textContent=daily?`${p.name} · ${MONTHS[m]} ${y} · angka meter sebelum konversi dan pemakaian akhir kWh`:`${p.name} · Januari–Desember ${y} · subtotal bulanan dari pembacaan harian`;
+ $('seriesName').textContent=p.name;$('seriesLegend').style.setProperty('--chart-series-color',panelColor());
+ let rows=[],filled=0;
+ if(daily){for(let day=1;day<=dCount;day++){
+  const date=idDate(y,m,day),v=calculate(date,id),raw=daysSeries(date,id),hourList=raw.length?`<details class="hour-details"><summary>${raw.length} jam · lihat</summary><div class="hour-values">${raw.map(([h,reading])=>`<span><b>${String(h).padStart(2,'0')}:00</b> · ${escapeHtml(fmt(reading,3))}</span>`).join('')}</div></details>`:'<span class="dim">—</span>';
+  if(isNum(v.value))filled++;
+  rows.push(`<tr data-raw-index="${day-1}"><td><b>${date}</b></td><td class="right">${escapeHtml(fmt(v.first,3))}</td><td class="right">${escapeHtml(fmt(v.last,3))}</td><td>${hourList}</td><td class="right value">${escapeHtml(fmt(v.value,2))}</td><td><span class="tag ${chooseStatus(v.status)}" title="${escapeHtml(v.flags.join('; '))}">${escapeHtml(v.status)}</span></td></tr>`);
+ }}else{for(let month=0;month<12;month++){
+  const v=monthly(y,month,id),days=daysIn(y,month);if(isNum(v.value))filled++;
+  const coverage=v.weekly?'Arsip mingguan':`${v.valid}/${days} hari`;
+  rows.push(`<tr data-raw-index="${month}"><td><b>${MONTHS[month]} ${y}</b></td><td class="right value">${escapeHtml(fmt(v.value,2))}</td><td class="right">${coverage}</td><td class="right">${v.weekly?'—':`${v.complete}/${days}`}</td><td><span class="tag ${chooseStatus(v.status)}">${escapeHtml(v.status)}</span></td><td><button type="button" class="btn sm month-open" data-view-month="${month}">Lihat harian</button></td></tr>`)
+ }}
+ const headings=daily?'<th>Tanggal</th><th class="right">Meter awal</th><th class="right">Meter akhir</th><th>Pembacaan per jam</th><th class="right">Pemakaian (kWh)</th><th>Status</th>':'<th>Bulan</th><th class="right">Total kWh</th><th class="right">Cakupan</th><th class="right">Hari lengkap</th><th>Status</th><th>Rincian</th>';
+ $('chartRawCount').textContent=`${filled} / ${daily?dCount:12} ${daily?'hari':'bulan'} terisi`;
+ $('chartRawTable').innerHTML=`<table><thead><tr>${headings}</tr></thead><tbody>${rows.join('')}</tbody></table>`;
+}
+function renderDaily(values){let html='';values.forEach((v,i)=>{const date=idDate(state.year,state.month,i+1),rec=state.db.overrides?.[date]?.[state.panel],note=v.flags.join('; '),raw=daysSeries(date,state.panel);
+ const val=isNum(v.value)?v.value:'',begin=isNum(v.first)?v.first:'',finish=isNum(v.last)?v.last:'',readonly=state.editing?'':'disabled',selected=date===state.hourDate;
+ html+=`<tr class="${selected?'chosen-hour':''}"><td><b>${escapeHtml(date)}</b></td><td><input class="editvalue" type="number" step="any" min="0" data-meter-date="${date}" data-meter-edge="first" aria-label="Meter awal ${date}" value="${begin}" placeholder="—" ${readonly}></td><td><input class="editvalue" type="number" step="any" min="0" data-meter-date="${date}" data-meter-edge="last" aria-label="Meter akhir ${date}" value="${finish}" placeholder="—" ${readonly}></td><td><input class="editvalue kwh-input ${isNum(rec)?'corrected':''}" type="number" step="any" min="0" aria-label="Pemakaian kWh ${date}" data-correction="${date}" value="${val}" placeholder="—" ${readonly}></td><td><span title="${escapeHtml(note)}" class="tag ${chooseStatus(v.status)}">${escapeHtml(v.status)}</span></td><td><button class="btn sm" type="button" data-edit-day="${date}">${selected?'● ':''}${state.editing?'Isi Jam':'Lihat Jam'}</button></td></tr>`});$('dailyRows').innerHTML=html;
+ $('editTableBtn').setAttribute('aria-pressed',String(state.editing));$('editTableBtn').textContent=state.editing?'✓ Mode Edit Aktif':'✎ Edit Tabel';
+ $('editModeHint').textContent=state.editing?'Mode edit aktif · Klik angka dalam tabel harian atau tabel per jam, lalu klik Simpan ke GitHub.':'Mode lihat · Klik Edit Tabel untuk mulai mengisi atau memperbaiki angka.';$('clearCorrection').disabled=!state.editing;
+}
+function applyInlineKwh(date){let el=document.querySelector(`[data-correction="${date}"]`);if(!el||!state.editing)return false;let s=el.value.trim();if(s===''){
+ if(state.db.overrides?.[date]&&Object.hasOwn(state.db.overrides[date],state.panel)){delete state.db.overrides[date][state.panel];if(!Object.keys(state.db.overrides[date]).length)delete state.db.overrides[date];markDirty();}return true;
+ }
+ let n=Number(s);if(!Number.isFinite(n)||n<0){el.focus();setStatus('Nilai kWh harus angka 0 atau lebih.','error');return false}
+ let current=state.db.overrides?.[date]?.[state.panel];if(current===n)return true;
+ if(current===undefined){const normal=calculate(date,state.panel);if(isNum(normal.value)&&Math.abs(normal.value-n)<1e-8)return true;}
+ ((state.db.overrides??={})[date]??={})[state.panel]=n;markDirty();return true;
+}
+function applyInlineMeter(date,edge,input){if(!state.editing)return false;let raw=input.value.trim();if(raw===''){if(!daysSeries(date,state.panel).length)return true;setStatus('Untuk menghapus stand meter lama, kosongkan jam terkait pada Tabel Pembacaan Meter per Jam.','warn');return false;}
+ if(!Number.isFinite(Number(raw))||Number(raw)<0){setStatus('Meter awal/akhir harus angka valid ≥ 0.','error');return false}
+ const val=Number(raw),old=state.db.readings?.[date]?.[state.panel],rows=(old?.r||[]).map(v=>[Number(v[0]),Number(v[1])]).filter(v=>Number.isFinite(v[0])&&Number.isFinite(v[1])).sort((a,b)=>a[0]-b[0]);
+ const h=edge==='first'?(rows.length>=2?rows[0][0]:(rows[0]?.[0]===0?0:0)):(rows.length>=2?rows.at(-1)[0]:(rows[0]?.[0]===24?24:24));
+ const ix=rows.findIndex(v=>v[0]===h);if(ix>=0){if(rows[ix][1]===val)return true;rows[ix][1]=val;}else rows.push([h,val]);
+ rows.sort((a,b)=>a[0]-b[0]);(state.db.readings[date]??={})[state.panel]={...old,r:rows,src:old?.src||'Input tabel website'};
+ markDirty('Stand meter '+(edge==='first'?'awal':'akhir')+' diperbarui sebagai draf. Simpan ke GitHub untuk publikasi.');return true;
+}
+function renderReadings(){if(!state.db)return;const date=state.hourDate;const rows=daysSeries(date,state.panel),map=new Map(rows.map(([h,v])=>[Number(h),v]));$('hourDate').value=date;
+ $('hourUnitLabel').textContent='Stand meter · '+(getPanel(state.panel)?.unit||'—');
+ $('readingRows').innerHTML=Array.from({length:25},(_,h)=>{const value=map.get(h),present=isNum(value),off=state.editing?'':'disabled';return `<tr class="${present?'has-reading':''}"><td><b>${String(h).padStart(2,'0')}:00</b></td><td><input type="number" class="editvalue hour-input" data-hour-reading="${h}" step="any" min="0" placeholder="Belum ada data" value="${present?value:''}" ${off} aria-label="Stand meter jam ${String(h).padStart(2,'0')}:00 tanggal ${date}"></td><td><span class="tag ${present?'ok':''}">${present?'Terisi':'Kosong'}</span></td></tr>`}).join('');
+}
+function updateHourReading(hour,field){if(!state.editing)return false;const date=state.hourDate,text=field.value.trim(),existing=state.db.readings?.[date]?.[state.panel],rows=(existing?.r||[]).map(v=>[Number(v[0]),Number(v[1])]),index=rows.findIndex(v=>v[0]===hour);
+ if(text===''){if(index<0)return true;rows.splice(index,1);}else{const val=Number(text);if(!Number.isFinite(val)||val<0){setStatus('Stand meter harus berupa angka 0 atau lebih.','error');field.focus();return false}if(index>=0){if(rows[index][1]===val)return true;rows[index][1]=val;}else rows.push([hour,val]);}
+ if(rows.length){rows.sort((a,b)=>a[0]-b[0]);(state.db.readings[date]??={})[state.panel]={...existing,r:rows,src:existing?.src||'Input tabel website'};}
+ else if(existing){delete state.db.readings[date][state.panel];if(!Object.keys(state.db.readings[date]).length)delete state.db.readings[date];}
+ markDirty('Pembacaan jam '+String(hour).padStart(2,'0')+':00 diperbarui pada draf. Klik Simpan ke GitHub.');return true;
+}
+function renderWeekly(){const key=`${state.year}-${String(state.month+1).padStart(2,'0')}`,entries=state.db.snapshots?.[key]?.[state.panel];$('weeklySection').classList.toggle('hidden',!entries?.length);if(!entries?.length)return;
+ $('weeklyRows').innerHTML=entries.map((v,i)=>`<tr><td>${key}-${String(v.day).padStart(2,'0')}</td><td><input type="number" class="editvalue" step="any" min="0" data-weekly-index="${i}" value="${isNum(v.value)?v.value:''}" ${state.editing?'':'disabled'} aria-label="Stand meter arsip tanggal ${v.day}"></td><td>${escapeHtml(v.unit||getPanel(state.panel)?.unit||'-')}</td><td><span class="tag">Arsip 2025</span></td></tr>`).join('');}
+function markDirty(message='Perubahan tersimpan sebagai draf lokal. Klik Simpan ke GitHub untuk berbagi ke perangkat lain.'){state.dirty=true;try{localStorage.setItem(DRAFT_KEY,JSON.stringify({db:state.db,baseHash:fastHash(state.base)}))}catch(err){message='Perubahan ada di halaman ini, tetapi penyimpanan browser gagal. Unduh JSON untuk cadangan.';}setStatus(message,'warn');}
+function fastHash(s){let h=2166136261;for(let i=0;i<s.length;i++)h=Math.imul(h^s.charCodeAt(i),16777619);return (h>>>0).toString(16)}
+function refresh(){initFilters();render();}
+function editPanel(){const p=getPanel(state.panel),name=$('panelName').value.trim(),unit=$('panelUnit').value;if(!name){alert('Nama panel tidak boleh kosong');return}if(!['KWH','MWH','GWH','UNKNOWN'].includes(unit))return;p.name=name;p.unit=unit;markDirty();refresh();}
+function addNewPanel(){let name=prompt('Nama panel baru:');if(!name||!name.trim())return;name=name.trim().slice(0,125);let id='panel-'+name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');if(!id||state.db.panels.some(p=>p.id===id)){id='panel-'+Date.now().toString(36)}state.db.panels.push({id,name,unit:'KWH',sourceSheets:['Input website']});state.panel=id;markDirty();refresh();}
+function downloadJson(){const blob=new Blob([JSON.stringify(state.db,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=`rekap-listrik-backup-${new Date().toISOString().slice(0,10)}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(url),2000)}
+function downloadCsv(){
+ const daily=state.tab==='daily',cols=daily?['Tanggal','Meter Awal (satuan panel)','Meter Akhir (satuan panel)','Pembacaan per jam','Pemakaian (kWh)','Status','Catatan']:['Bulan','Total kWh','Hari dengan nilai','Hari lengkap','Jumlah hari','Status'],data=[];
+ if(daily){for(let i=0;i<daysIn(state.year,state.month);i++){
+  const date=idDate(state.year,state.month,i+1),r=calculate(date,state.panel),hours=daysSeries(date,state.panel).map(([h,v])=>String(h).padStart(2,'0')+':00 = '+v).join(' | ');
+  data.push([date,r.first,r.last,hours,r.value,r.status,r.flags.join('; ')]);
+ }}else{for(let m=0;m<12;m++){
+  const r=monthly(state.year,m,state.panel);data.push([MONTHS[m]+' '+state.year,r.value,r.valid,r.complete,daysIn(state.year,m),r.status]);
+ }}
+ const csv=[cols,...data].map(row=>row.map(x=>'"'+String(x??'').replaceAll('"','""')+'"').join(',')).join('\r\n');let a=document.createElement('a'),url=URL.createObjectURL(new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'}));
+ a.href=url;a.download=`raw-data-${state.panel}-${state.year}-${daily?MONTHS[state.month]:'tahunan'}.csv`;a.click();setTimeout(()=>URL.revokeObjectURL(url),2000);
+}
+async function downloadPng(){
+ const svg=$('chart').querySelector('svg');if(!svg){setStatus('Grafik masih kosong, belum dapat diunduh.','warn');return}
+ try{
+  const view=svg.viewBox.baseVal,scale=2,W=view.width,H=view.height,rows=[],daily=state.tab==='daily';
+  if(daily)for(let i=0;i<daysIn(state.year,state.month);i++){let date=idDate(state.year,state.month,i+1),r=calculate(date,state.panel);rows.push([date,fmt(r.first,2),fmt(r.last,2),fmt(r.value,2),r.status]);}
+  else for(let m=0;m<12;m++){let r=monthly(state.year,m,state.panel);rows.push([MONTHS[m],r.weekly?'Arsip mingguan':`${r.valid}/${daysIn(state.year,m)} hari`,r.weekly?'—':`${r.complete}/${daysIn(state.year,m)} lengkap`,fmt(r.value,2),r.status]);}
+  const rh=28,headerH=93,footH=45,fullH=H+headerH+rows.length*rh+footH;
+  const canvas=document.createElement('canvas');canvas.width=W*scale;canvas.height=fullH*scale;const ctx=canvas.getContext('2d');ctx.scale(scale,scale);ctx.fillStyle='#fff';ctx.fillRect(0,0,W,fullH);
+  let xml=new XMLSerializer().serializeToString(svg),src=URL.createObjectURL(new Blob([xml],{type:'image/svg+xml;charset=utf-8'})),img=new Image();
+  try{await new Promise((ok,fail)=>{img.onload=ok;img.onerror=fail;img.src=src});ctx.drawImage(img,0,0,W,H)}finally{URL.revokeObjectURL(src)}
+  let x0=34,rowY=H+20;ctx.fillStyle='#183654';ctx.font='bold 19px Arial';ctx.fillText('RAW DATA · '+(daily?'HARIAN':'BULANAN'),x0,rowY);ctx.fillStyle='#677d95';ctx.font='12px Arial';ctx.fillText(getPanel(state.panel).name+' · '+(daily?MONTHS[state.month]+' ':'')+state.year,x0,rowY+21);
+  let labels=daily?['Tanggal','Meter Awal','Meter Akhir','Pemakaian (kWh)','Status']:['Bulan','Cakupan','Hari Lengkap','Pemakaian (kWh)','Status'];
+  const widths=[220,220,220,260,175],xs=[x0];for(let i=1;i<5;i++)xs.push(xs.at(-1)+widths[i-1]);
+  const topY=H+55;ctx.fillStyle='#ecf3fa';ctx.fillRect(x0,topY,W-2*x0,rh);ctx.fillStyle='#3c5674';ctx.font='bold 12px Arial';labels.forEach((l,i)=>ctx.fillText(l,xs[i]+10,topY+19,widths[i]-17));
+  rows.forEach((r,j)=>{let yy=topY+rh+j*rh;if(j%2===1){ctx.fillStyle='#f7faff';ctx.fillRect(x0,yy,W-2*x0,rh)}ctx.fillStyle=j%2?'#263f5a':'#304b65';ctx.font=j===rows.length-1?'bold 12px Arial':'12px Arial';r.forEach((v,i)=>ctx.fillText(String(v),xs[i]+10,yy+19,widths[i]-17));});
+  ctx.fillStyle='#7b8b9e';ctx.font='11px Arial';ctx.fillText('Sumber: database JSON · Data kosong tidak dihitung nol · Periksa status sementara dan anomali',x0,fullH-15);
+  const out=await new Promise(resolve=>canvas.toBlob(resolve,'image/png'));if(!out)throw Error('Gagal membuat PNG');let url=URL.createObjectURL(out),a=document.createElement('a');a.href=url;a.download=`grafik-raw-lapi2-${state.panel}-${state.tab}-${state.year}.png`;a.click();setTimeout(()=>URL.revokeObjectURL(url),2000);
+ }catch(e){setStatus('Gagal mengunduh PNG: '+e.message,'error')}
+}
+function downloadTableCsv(){const rows=Array.from({length:daysIn(state.year,state.month)},(_,i)=>{const date=idDate(state.year,state.month,i+1),r=calculate(date,state.panel);return [date,r.first,r.last,r.value,r.status]});const csv=[['Tanggal','Meter Awal','Meter Akhir','Pemakaian kWh','Status'],...rows].map(row=>row.map(v=>'"'+String(v??'').replaceAll('"','""')+'"').join(',')).join('\r\n');const blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=`tabel-${state.panel}-${state.year}-${String(state.month+1).padStart(2,'0')}.csv`;a.click();setTimeout(()=>URL.revokeObjectURL(url),2000)}
+function encodeB64(str){const bytes=new TextEncoder().encode(str);let result='';for(let i=0;i<bytes.length;i+=8192)result+=String.fromCharCode(...bytes.subarray(i,i+8192));return btoa(result)}
+function decodeB64(str){const decoded=atob(str.replace(/\s/g,''));return new TextDecoder().decode(Uint8Array.from(decoded,c=>c.charCodeAt(0)))}
+async function saveGitHub(){if(state.loading)return;if(!state.token){setStatus('Masukkan token pada Pengaturan Penyimpanan GitHub terlebih dahulu.','warn');state.view='settings';render();$('githubSettings').open=true;$('githubSettings').scrollIntoView({behavior:'smooth',block:'center'});$('token').focus();return}state.loading=true;$('saveBtn').disabled=true;$('saveTableBtn').disabled=true;$('editTableBtn').disabled=true;setStatus('Memeriksa perubahan di repository sebelum menyimpan...');try{const api=`https://api.github.com/repos/${REPO}/contents/${DATA_PATH}`,headers={'Accept':'application/vnd.github+json','Authorization':'Bearer '+state.token,'X-GitHub-Api-Version':'2022-11-28'},get=await fetch(api+'?t='+Date.now(),{headers,cache:'no-store'});if(!get.ok)throw Error(`GitHub API HTTP ${get.status}: pastikan repository dan izin token Contents Read and write benar.`);const meta=await get.json();
+ // GitHub Contents API tidak mengembalikan field content untuk file lebih dari 1 MB.
+ // Saat itu baca melalui Git Blobs API memakai SHA dari metadata file.
+ let remoteText;
+ if(meta.encoding==='base64'&&meta.content)remoteText=decodeB64(meta.content);
+ else{
+  if(!meta.sha)throw Error('GitHub tidak memberikan SHA file untuk validasi perubahan.');
+  const blobRes=await fetch(`https://api.github.com/repos/${REPO}/git/blobs/${encodeURIComponent(meta.sha)}`,{headers,cache:'no-store'});
+  if(!blobRes.ok)throw Error('Gagal mengambil database besar melalui GitHub Git Blobs API (HTTP '+blobRes.status+').');
+  const blob=await blobRes.json();if(!blob.content||blob.encoding!=='base64')throw Error('Format file GitHub tidak dapat dibaca.');
+  remoteText=decodeB64(blob.content);
+ }
+ const remote=JSON.parse(remoteText);
+ if(JSON.stringify(remote)!==state.base)throw Error('Data GitHub sudah berubah sejak dashboard ini dibuka. Unduh JSON cadangan, muat ulang website, dan gabungkan koreksi sebelum simpan agar tidak menimpa data orang lain.');
+ const content={...state.db,updatedAt:new Date().toISOString()},newText=JSON.stringify(content),put=await fetch(api,{method:'PUT',headers:{...headers,'Content-Type':'application/json'},body:JSON.stringify({message:'Update rekap meter listrik melalui dashboard',content:encodeB64(newText),sha:meta.sha,branch:'main'})});if(!put.ok){const err=await put.json().catch(()=>({}));throw Error(`Gagal simpan (HTTP ${put.status}): ${err.message||'periksa izin repository'}`)}
+ state.db=content;state.base=JSON.stringify(content);state.dirty=false;state.editing=false;localStorage.removeItem(DRAFT_KEY);render();setStatus('Berhasil disimpan ke GitHub! Data JSON diperbarui dan tabel kembali ke mode lihat.','ok');
+ }catch(e){setStatus(e.message||String(e),'error')}finally{state.loading=false;$('saveBtn').disabled=false;$('saveTableBtn').disabled=false;$('editTableBtn').disabled=false}}
+async function boot(){try{const response=await fetch('./'+DATA_PATH+'?t='+Date.now(),{cache:'no-store'});if(!response.ok)throw Error('Gagal memuat '+DATA_PATH+' (HTTP '+response.status+'). Periksa lokasi file JSON di GitHub.');const db=await response.json();if(!Array.isArray(db.panels)||!db.readings||typeof db.readings!=='object')throw Error('Format JSON database tidak sesuai.');db.overrides??={};db.snapshots??={};state.base=JSON.stringify(db);state.db=db;
+ const draft=localStorage.getItem(DRAFT_KEY);if(draft){try{let data=JSON.parse(draft);if(data.db?.panels&&data.db?.readings){state.db=data.db;state.dirty=true;setStatus(data.baseHash===fastHash(state.base)?'Draf lokal dipulihkan. Klik Simpan ke GitHub untuk membagikannya.':'Draf lokal dipulihkan, tetapi data GitHub sudah berbeda. Unduh JSON cadangan sebelum menyimpan.','warn');}}catch{localStorage.removeItem(DRAFT_KEY)}}
+ if(!state.dirty)setStatus('Data Excel berhasil dimuat dari JSON GitHub. Anda bisa mengedit dan menambahkan pencatatan.','ok');let keys=Object.keys(state.db.readings||{}).sort(),target=keys.at(-1);state.year=target?.slice(0,4)||String(currentYear());state.month=target?Number(target.slice(5,7))-1:new Date().getMonth();state.panel=state.db.panels[0]?.id;initFilters();render();
+ }catch(e){setStatus('Gagal membuka database: '+e.message+'. Jalankan lewat GitHub Pages atau server lokal, bukan file://.','error');}}
+$('rawToggle').addEventListener('click',()=>{const body=$('chartRawBody'),open=body.hidden;body.hidden=!open;$('rawToggle').textContent=open?'Sembunyikan Tabel':'Tampilkan Tabel';$('rawToggle').setAttribute('aria-expanded',String(open));});
+$('rawCsv').addEventListener('click',downloadCsv);
+$('chartRawTable').addEventListener('click',e=>{const b=e.target.closest('button[data-view-month]');if(!b)return;state.month=Number(b.dataset.viewMonth);state.tab='daily';$('month').value=String(state.month);render();$('chart').scrollIntoView({behavior:'smooth',block:'start'})});
+$('chartRawTable').addEventListener('mouseover',e=>{const row=e.target.closest('tr[data-raw-index]');if(!row)return;row.classList.add('chart-row-focus')});
+$('chartRawTable').addEventListener('mouseout',e=>{const row=e.target.closest('tr[data-raw-index]');if(row&&!row.contains(e.relatedTarget))row.classList.remove('chart-row-focus')});
+$('year').addEventListener('change',e=>{state.year=e.target.value;state.hourDate=idDate(state.year,state.month,1);render()});
+$('month').addEventListener('change',e=>{state.month=+e.target.value;state.hourDate=idDate(state.year,state.month,1);render()});
+$('panel').addEventListener('change',e=>{state.panel=e.target.value;syncPanelEdit();render()});
+$('mode').addEventListener('change',e=>{state.mode=e.target.value;render()});
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{state.tab=b.dataset.tab;render()}));
+document.querySelectorAll('.view-tab').forEach(b=>b.addEventListener('click',()=>{state.view=b.dataset.view;render()}));
+$('editTableBtn').addEventListener('click',()=>{state.editing=!state.editing;render();if(state.editing)setStatus('Mode edit aktif. Klik sel tabel yang ingin diisi lalu tekan Simpan ke GitHub.','ok');});
+$('dailyRows').addEventListener('change',e=>{const el=e.target;if(!state.editing)return;
+ if(el.matches('[data-correction]')){if(applyInlineKwh(el.dataset.correction))render();return;}
+ if(el.matches('[data-meter-date]')){if(applyInlineMeter(el.dataset.meterDate,el.dataset.meterEdge,el))render();}
+});
+$('dailyRows').addEventListener('click',e=>{const b=e.target.closest('button[data-edit-day]');if(!b)return;state.hourDate=b.dataset.editDay;renderDaily(Array.from({length:daysIn(state.year,state.month)},(_,i)=>calculate(idDate(state.year,state.month,i+1),state.panel)));renderReadings();$('hourTableSection').scrollIntoView({behavior:'smooth',block:'start'});});
+$('hourDate').addEventListener('change',e=>{const date=e.target.value,prefix=state.year+'-'+String(state.month+1).padStart(2,'0')+'-';if(!date.startsWith(prefix)){setStatus('Pilih tanggal dalam bulan yang sedang ditampilkan.','warn');e.target.value=state.hourDate;return;}state.hourDate=date;renderDaily(Array.from({length:daysIn(state.year,state.month)},(_,i)=>calculate(idDate(state.year,state.month,i+1),state.panel)));renderReadings();});
+$('readingRows').addEventListener('change',e=>{const inp=e.target.closest('input[data-hour-reading]');if(!inp||!state.editing)return;if(updateHourReading(Number(inp.dataset.hourReading),inp)){render();}});
+$('weeklyRows').addEventListener('change',e=>{const inp=e.target.closest('input[data-weekly-index]');if(!inp||!state.editing)return;let key=`${state.year}-${String(state.month+1).padStart(2,'0')}`,entry=state.db.snapshots?.[key]?.[state.panel]?.[Number(inp.dataset.weeklyIndex)];if(!entry)return;let text=inp.value.trim(),value=Number(text);if(text===''||!Number.isFinite(value)||value<0){setStatus('Isi stand meter arsip dengan angka valid ≥ 0.','error');return;}if(entry.value!==value){entry.value=value;entry.raw=value;markDirty('Arsip meter diperbarui sebagai draf. Klik Simpan ke GitHub.');render();}});
+$('updatePanel').addEventListener('click',editPanel);$('newPanel').addEventListener('click',addNewPanel);
+$('clearCorrection').addEventListener('click',()=>{if(!state.editing){setStatus('Klik Edit Tabel sebelum menghapus koreksi.','warn');return}if(!confirm('Hapus semua koreksi kWh pada bulan dan panel ini? Data stand meter asli tetap tersimpan.'))return;let n=0;for(let d=1;d<=daysIn(state.year,state.month);d++){let date=idDate(state.year,state.month,d),record=state.db.overrides?.[date];if(record&&Object.hasOwn(record,state.panel)){n++;delete record[state.panel];if(!Object.keys(record).length)delete state.db.overrides[date]}}if(n){markDirty(`${n} koreksi dihapus dari draf. Klik Simpan ke GitHub.`);render()}});
+$('backupBtn').addEventListener('click',downloadJson);$('exportCsv').addEventListener('click',downloadCsv);$('saveBtn').addEventListener('click',saveGitHub);$('saveTableBtn').addEventListener('click',saveGitHub);$('exportPng').addEventListener('click',downloadPng);$('tableCsvBtn').addEventListener('click',downloadTableCsv);
+$('chartColor').addEventListener('input',e=>{getPanel(state.panel).color=e.target.value;markDirty('Warna grafik panel diubah pada draf. Klik Simpan ke GitHub untuk membagikan.');drawChart(state.tab==='daily'?Array.from({length:daysIn(state.year,state.month)},(_,i)=>calculate(idDate(state.year,state.month,i+1),state.panel).value):Array.from({length:12},(_,m)=>monthly(state.year,m,state.panel).value),state.tab==='daily'?Array.from({length:daysIn(state.year,state.month)},(_,i)=>String(i+1)):SHORT);});
+$('activateToken').addEventListener('click',()=>{let t=$('token').value.trim();if(!/^github_pat_|^ghp_/.test(t)){setStatus('Masukkan token GitHub yang valid. Token tidak akan disimpan ke file.', 'warn');return}state.token=t;$('token').value='';setStatus('Token siap selama tab ini terbuka. Klik Simpan ke GitHub setelah selesai mengedit.','ok')});
+boot();
+})();
+</script></body></html>
